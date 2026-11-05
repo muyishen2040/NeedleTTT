@@ -65,7 +65,7 @@ python -m pip install -e ".[api,dev]"
 python scripts/check_needle.py
 ```
 
-The script adds `third_party/needle/python` to the current Python process's import path and verifies that `import needle` resolves to **your local checkout**, not an unrelated installed package.
+The script adds `third_party/needle/python` to the current Python process's import path and verifies that `import needle` resolves to **your local checkout**, not an unrelated installed package. It accepts an optional `--checkout PATH` argument **for diagnostic/testing only**; team members should use the standard location without this argument. CI tests the diagnostic using a synthetic temporary package, not restricted course files.
 
 - **Success:** it prints the class checkout and imported module path. You can start integrating the real Needle operators in `src/needlettt/backend/needle_ops.py`.
 - **Missing directory:** copy the full checkout into `third_party/needle/`.

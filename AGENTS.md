@@ -25,6 +25,8 @@ This repo is a **three-person course research project**, not a production storef
 - Final accuracy numbers come from held-out users, the declared catalog, documented seeds, and paired uncertainty when possible.
 - Do not commit real Amazon data, checkpoints, secrets, user information, or restricted course Needle solutions.
 - Keep a CPU path. No web hosting, cloud services, DB or auth are required for the local demo.
+- The class checkout is intentionally absent from GitHub/CI: put it only at `third_party/needle/` locally. The import check is `python scripts/check_needle.py`. A successful import is **not** proof that native/CUDA extensions or autodiff work.
+- For `needle_ops.py`, step functions take *batched* Needle tensors: matrix `W [B,d,d]`, keys/targets `[B,d]`; vector `w/features [B,D]`. NumPy oracle also accepts an unbatched single-user call for teaching tests.
 
 ## Editing workflow
 

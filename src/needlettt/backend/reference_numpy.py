@@ -61,3 +61,37 @@ def matrix_scan(
         for t in range(int(lengths[b])):
             result[b] = matrix_step(result[b], keys[b, t], targets[b, t], eta, eps)
     return result
+
+
+def vector_step_batched(
+    w: np.ndarray, features: np.ndarray, centered_ratings: np.ndarray,
+    eta: float = 0.5, eps: float = 1e-8,
+) -> np.ndarray:
+    """Reference BATCHED vector step: [B,D], [B,D], [B] -> [B,D]."""
+    w = np.asarray(w, dtype=np.float64)
+    x = np.asarray(features, dtype=np.float64)
+    y = np.asarray(centered_ratings, dtype=np.float64)
+    if w.ndim != 2 or x.shape != w.shape or y.shape != (w.shape[0],):
+        raise ValueError("Expected w/features [B,D] and centered_ratings [B]")
+    return np.stack(
+        [vector_step(w[b], x[b], y[b], eta=eta, eps=eps) for b in range(w.shape[0])],
+        axis=0,
+    )
+
+
+def matrix_step_batched(
+    W: np.ndarray, keys: np.ndarray, targets: np.ndarray,
+    eta: float = 0.5, eps: float = 1e-8,
+) -> np.ndarray:
+    """Reference BATCHED matrix step: [B,d,d], [B,d], [B,d] -> [B,d,d]."""
+    W = np.asarray(W, dtype=np.float64)
+    k = np.asarray(keys, dtype=np.float64)
+    v = np.asarray(targets, dtype=np.float64)
+    if W.ndim != 3 or W.shape[1] != W.shape[2]:
+        raise ValueError("Expected W [B,d,d]")
+    B, d, _ = W.shape
+    if k.shape != (B, d) or v.shape != (B, d):
+        raise ValueError("Expected keys/targets [B,d]")
+    return np.stack(
+        [matrix_step(W[b], k[b], v[b], eta=eta, eps=eps) for b in range(B)], axis=0
+    )

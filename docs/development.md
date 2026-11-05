@@ -1,5 +1,17 @@
 # Development and review workflow
 
+## Fresh clone
+
+Until [bootstrap PR #1](https://github.com/muyishen2040/NeedleTTT/pull/1) is merged, checkout its branch:
+
+```bash
+git clone https://github.com/muyishen2040/NeedleTTT.git
+cd NeedleTTT
+git checkout chore/bootstrap-project-scaffold
+```
+
+After the PR is merged, use `main`. No course Needle source is needed for the teaching demo or bootstrap tests.
+
 ## Quick commands
 
 ```bash

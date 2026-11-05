@@ -63,3 +63,29 @@ def test_api_catalog_and_health():
     items = client.get("/items", params={"query": "Racing"}).json()["items"]
     assert len(items) == 2
     assert all(x["source"] == "fictional_demo" for x in items)
+
+
+def test_session_default_variant_and_strict_rating_input():
+    created = client.post("/sessions", json={"variant": "vector"})
+    assert created.status_code == 200
+    sid = created.json()["session_id"]
+    assert created.json()["default_variant"] == "vector"
+    get_default = client.get(f"/sessions/{sid}/recommendations")
+    assert get_default.status_code == 200
+    assert get_default.json()["variant"] == "vector"
+    assert client.post("/sessions", json={"variant": "unsupported"}).status_code == 422
+    for bad in [4.5, "5", None]:
+        assert client.post(
+            f"/sessions/{sid}/ratings",
+            json={"item_id": "demo-astro", "rating": bad},
+        ).status_code == 422
+
+
+def test_replay_invalid_item_keeps_existing_history():
+    sid = new_session()
+    client.post(f"/sessions/{sid}/ratings", json={"item_id": "demo-astro", "rating": 5})
+    before = client.get(f"/sessions/{sid}/recommendations?variant=matrix").json()
+    invalid = {"events": [{"item_id": "demo-rally", "rating": 4},
+                          {"item_id": "missing-item", "rating": 5}]}
+    assert client.post(f"/sessions/{sid}/replay", json=invalid).status_code == 404
+    assert client.get(f"/sessions/{sid}/recommendations?variant=matrix").json() == before

@@ -22,6 +22,7 @@ replayed = model.replay(histories)                     # B ordered lists of (idx
 - `state` keeps a separate observed history and optional vector or matrix fast memory **per user**.
 - `update` is nonmutating: it returns new state. All tested variants observe the same rating.
 - `replay` starts from fresh initial state and must agree with stepwise updates.
+- `load_model(checkpoint_dir, variant=...)` and persisted checkpoints are **planned, not included** in PR #1; the starter constructs toy models directly.
 - Variants implemented in the *teaching adapter*: `base`, `vector`, `matrix`. A separately trained `static` and capacity-matched `d²` vector belong to the **final algorithm deliverables**, not the teaching adapter.
 - Real model dimensions, trained embeddings, batch/padding semantics and checkpoint serialization are not implemented yet.
 
@@ -37,7 +38,17 @@ W_next = W - eta * outer(error, k) / (dot(k,k) + eps)
 memory_adjustment = dot(e, W @ k) / (dot(e,e) + eps)
 ```
 
-Needle kernel APIs planned: `matrix_step(W,k,v,eta,eps)`, `matrix_scan(W0,keys,values,lengths,eta,eps)`, `vector_step(w,features,y,eta,eps)`. The CUDA path optimizes matrix forward/replay only at first; gradients flow through the **Needle** reference.
+**The public Needle operator boundary is batched, even for a single user (B=1):**
+
+```python
+matrix_step(W, keys, targets, eta, eps)         # [B,d,d], [B,d], [B,d] -> [B,d,d]
+matrix_scan(W0, keys, targets, lengths, eta, eps) # [B,d,d], [B,T,d], [B,T,d], [B] -> [B,d,d]
+vector_step(w, features, centered_ratings, eta, eps)  # [B,D], [B,D], [B] -> [B,D]
+```
+
+`D=d` for the small vector and `D=d*d` for the capacity-matched vector. A one-user `matrix_step` still uses `W[1,d,d]`, not `W[d,d]`, in the **Needle** interface. `src/needlettt/backend/reference_numpy.py` is a small numerical oracle that also accepts *unbatched* calls for easy hand checking. The teaching API does not use Needle yet. `src/needlettt/backend/needle_ops.py` currently raises `NotImplementedError` until DEE-13.
+
+The CUDA path optimizes matrix forward/replay only at first; gradients flow through the differentiable **Needle** reference.
 
 ## Local HTTP (React → FastAPI)
 
@@ -46,7 +57,7 @@ Base URL: `http://127.0.0.1:8000`, browser on `http://127.0.0.1:5173`. **HTTP do
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
 | GET | `/health` | Show scaffold/model status |
-| POST | `/sessions` | Independent in-memory session |
+| POST | `/sessions` | Independent in-memory session; optional `{variant}` selects default display model |
 | GET | `/items?query=...` | Browse the catalog |
 | GET | `/sessions/{id}/recommendations?variant=base` | Rank unseen items for one variant |
 | POST | `/sessions/{id}/ratings` | `{item_id,rating}`, update all variants |
