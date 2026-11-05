@@ -1,0 +1,13 @@
+# Planned configuration; dataset loader is not implemented in the bootstrap.
+dataset: movielens_1m
+split_seed: 17
+train_fraction: 0.70
+validation_fraction: 0.15
+test_fraction: 0.15
+ranking:
+  primary_metric: ndcg_at_10
+  relevant_ratings: [4, 5]
+  evaluate_full_eligible_catalog: true
+model:
+  embedding_dim: 16
+  variants: [base, vector, matrix]

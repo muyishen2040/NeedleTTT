@@ -1,0 +1,42 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+apps/web/dist/
+*.tsbuildinfo
+
+# Local secrets / IDE
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.DS_Store
+
+# Datasets, derived data, trained model artifacts
+data/raw/
+data/processed/
+data/metadata/
+artifacts/
+checkpoints/
+outputs/
+runs/
+*.ckpt
+*.pth
+*.pt
+*.safetensors
+
+# Course Needle source is NOT part of this public starter
+third_party/needle/
+external/needle/
+needle/
