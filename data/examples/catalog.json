@@ -1,0 +1,10 @@
+[
+  {"item_id":"demo-astro","item_idx":0,"title":"Asteroid Explorer","categories":["Adventure","Space"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"demo-rally","item_idx":1,"title":"Canyon Rally","categories":["Racing"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"demo-puzzle","item_idx":2,"title":"Crystal Puzzle","categories":["Puzzle"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"demo-garden","item_idx":3,"title":"Garden Quest","categories":["Simulation"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"demo-sword","item_idx":4,"title":"Swordbound Legends","categories":["Role Playing"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"demo-drift","item_idx":5,"title":"Night Drift","categories":["Racing"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"demo-logic","item_idx":6,"title":"Circuit Lab","categories":["Strategy","Puzzle"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"demo-island","item_idx":7,"title":"Island Builder","categories":["Simulation","Strategy"],"image_url":null,"source":"fictional_demo"}
+]
