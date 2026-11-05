@@ -28,6 +28,14 @@ npm run dev
 
 Open http://127.0.0.1:5173. Everything runs locally; **no cloud deployment, database, or user account is required**. The API listens on loopback (`127.0.0.1`) only.
 
+## Set up the course Needle checkout
+
+**Member B (and anyone running the real Needle model):** Copy your existing course Needle source folder into **`third_party/needle/`** at the root of this repository. Keep the folder's original contents and subdirectories unchanged. Do **not** put the class framework into `src/needlettt/backend/`: that directory is for **our new TTT operators**.
+
+For the common course layout, the resulting path looks like `third_party/needle/python/needle/`. Your exact class checkout may vary; [docs/needle_setup.md](docs/needle_setup.md) has step-by-step Windows and macOS/Linux copy commands, an import check, and troubleshooting.
+
+The course checkout is intentionally **gitignored** and will not appear in GitHub PRs. First verify the class sharing rules; the repository is currently public, so do not push course Needle solutions or other restricted files.
+
 ## Project layout
 
 ```text
@@ -41,13 +49,14 @@ src/needlettt/
   training/                Member A: end-to-end Needle training
   evaluation/              Member A: rolling metrics
   backend/                 Member B: Needle fast-weight ops, CUDA integration
+third_party/needle/         LOCAL ONLY: original class Needle checkout (gitignored)
 apps/api/                  Member C: local-only FastAPI service
 apps/web/                  Member C: React/Vite interface
 tests/                     Shared correctness + API smoke tests
 scripts/                   Experiments, benchmarks, data entrypoints
 ```
 
-**Do not copy or reorganize the course Needle source into this public repository.** Its imports, license and assignment-sharing rules must be checked first. The repository currently contains only our scaffolding and independently written reference code. We recommend changing the repo to **private before adding course implementation files**.
+**Local copy is supported; committing it is not.** The course Needle source may be copied locally under `third_party/needle/`, which is ignored by Git. Check the course sharing rules before considering any redistribution. Change the repository to **private** before you add any restricted course work to tracked files. See [Needle setup](docs/needle_setup.md).
 
 ## Model and evaluation plan
 

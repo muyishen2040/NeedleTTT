@@ -6,11 +6,12 @@ This repo is a **three-person course research project**, not a production storef
 2. `docs/contracts.md` — Python, tensor and local HTTP interfaces.
 3. `docs/data.md` — the no-leakage rolling evaluation protocol.
 4. `docs/development.md` — commands and PR checklist.
+5. `docs/needle_setup.md` — **the canonical path and import-check procedure for the class Needle source**.
 
 ## Ownership boundaries
 
 - **Algorithm / Member A:** `src/needlettt/data/`, `models/`, `training/`, `evaluation/`, `configs/`.
-- **Needle/CUDA / Member B:** `src/needlettt/backend/`, its tests and benchmarks. Preserve the structure of any separately supplied course Needle checkout; do not vendor course source without review.
+- **Needle/CUDA / Member B:** `src/needlettt/backend/`, its tests and benchmarks. The original class framework belongs **locally** at `third_party/needle/` (gitignored); retain its original layout and follow `docs/needle_setup.md`. Do not vendor or commit the course checkout.
 - **Frontend / Member C:** `apps/api/`, `apps/web/`, their tests.
 - **Shared:** `src/needlettt/contracts.py`, `docs/contracts.md`, package boundaries. Ask teammates for review before changing public signatures.
 

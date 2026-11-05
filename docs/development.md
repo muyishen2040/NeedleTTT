@@ -23,6 +23,10 @@ This is a **local-only** demo. The API keeps sessions in memory; restarting it c
 - Prefer smoke tests using the fictional catalog rather than downloading large datasets on CI.
 - Do not mark Linear tickets complete until the actual acceptance tests work.
 
+## Preparing the class Needle framework
+
+Before starting DEE-13, follow [Needle local setup](needle_setup.md): copy the **complete** class checkout into `third_party/needle/` (ignored by Git), then run `python scripts/check_needle.py` from the repo root. The check verifies your local import, not the actual TTT operations. Follow your course version's own build instructions if compiled extensions are required. Keep project-specific operations in `src/needlettt/backend/`.
+
 ## Sensitive/course code
 
 The repository was created **public**. Do not commit course Needle solutions, credentials, datasets, checkpoint weights or personal data. Ask the owner to switch visibility to **private** before sharing restricted course implementations; verify course-specific distribution rules first. Real data and training outputs live only under gitignored directories.
