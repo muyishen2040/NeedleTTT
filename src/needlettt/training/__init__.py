@@ -1,1 +1,1 @@
-"""Member A: Needle outer-loss training and truncated BPTT (DEE-8)."""
+"""Samuel Shen: Needle outer-loss training and truncated BPTT (DEE-8)."""

@@ -1,1 +1,1 @@
-"""Member A: reproducible MovieLens/Amazon preprocessing (DEE-6)."""
+"""Samuel Shen: reproducible MovieLens/Amazon preprocessing (DEE-6)."""

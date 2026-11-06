@@ -5,15 +5,15 @@
 Compare **history-updated two-tower recommendation** against two extensions that learn *temporary user-specific parameters* after every observed rating. Implement the training path in Needle and optimize the matrix replay scan in CUDA.
 
 ```text
-MovieLens / Amazon review histories (Member A)
+MovieLens / Amazon review histories (Samuel Shen)
        ↓ external item_id → stable item_idx
-Neural two-tower + vector/matrix TTT (Member A)
+Neural two-tower + vector/matrix TTT (Samuel Shen)
        ↓ same model protocol for each variant
-Needle differentiable vector/matrix operators (Member B)
+Needle differentiable vector/matrix operators (Maggie Pai)
        ↓ optional CUDA-accelerated matrix replay
-Local FastAPI inference adapter (Member C)
+Local FastAPI inference adapter (Pin-Wen Wang)
        ↕ HTTP + JSON on 127.0.0.1
-React/Vite browsing and rating UI (Member C)
+React/Vite browsing and rating UI (Pin-Wen Wang)
 ```
 
 ## Model boundary

@@ -1,1 +1,1 @@
-"""Member A: leakage-free rolling rank evaluation (DEE-7, DEE-9)."""
+"""Samuel Shen: leakage-free rolling rank evaluation (DEE-7, DEE-9)."""
