@@ -1,6 +1,6 @@
 # Experiment and benchmarking entrypoints
 
-Member A: place reproducible dataset preparation, training and rolling-evaluation CLI scripts here, with config files in `configs/`. Member B: add Needle/CUDA benchmark runners here, saving results under gitignored `artifacts/`. No real data or trained experiments are bundled in the bootstrap.
+Samuel Shen: place reproducible dataset preparation, training and rolling-evaluation CLI scripts here, with config files in `configs/`. Maggie Pai: add Needle/CUDA benchmark runners here, saving results under gitignored `artifacts/`. No real data or trained experiments are bundled in the bootstrap.
 
 Suggested future commands (not implemented yet):
 - `python scripts/prepare_dataset.py --config configs/movielens.yaml`

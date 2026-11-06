@@ -95,9 +95,9 @@ For longer-term use, follow the course checkout's documented editable-install in
 
 ## Step 4 — What to implement where
 
-- **Member B:** implement gradient-correct `vector_step`, `matrix_step`, `matrix_scan` in `src/needlettt/backend/needle_ops.py`, using the class's `needle` Python API. Put any project-level CUDA wrapper/kernel in `src/needlettt/backend/cuda/` and use the course backend build approach only when confirmed.
-- **Member A:** use those operators from `src/needlettt/models/` and `src/needlettt/training/`. Do not silently switch back to the NumPy teaching model for the final Needle training.
-- **Member C:** use the agreed model adapter through FastAPI and keep a CPU fallback.
+- **Maggie Pai:** implement gradient-correct `vector_step`, `matrix_step`, `matrix_scan` in `src/needlettt/backend/needle_ops.py`, using the class's `needle` Python API. Put any project-level CUDA wrapper/kernel in `src/needlettt/backend/cuda/` and use the course backend build approach only when confirmed.
+- **Samuel Shen:** use those operators from `src/needlettt/models/` and `src/needlettt/training/`. Do not silently switch back to the NumPy teaching model for the final Needle training.
+- **Pin-Wen Wang:** use the agreed model adapter through FastAPI and keep a CPU fallback.
 
 A modified course backend file may eventually be necessary for GPU support. Before tracking it or providing it to collaborators, confirm the course redistribution rules and project-specific integration plan with the team.
 

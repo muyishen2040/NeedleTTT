@@ -1,4 +1,4 @@
-# Member B — Needle/CUDA work area
+# Maggie Pai — Needle/CUDA work area
 
 Start with [DEE-13](https://linear.app/deep-learning-system-final/issue/DEE-13), [the class Needle setup instructions](../../../docs/needle_setup.md), and `docs/contracts.md`.
 

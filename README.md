@@ -47,7 +47,7 @@ Open http://127.0.0.1:5173. Everything runs locally; **no cloud deployment, data
 
 ## Set up the course Needle checkout
 
-**Member B (and anyone running the real Needle model):** Copy your existing course Needle source folder into **`third_party/needle/`** at the root of this repository. Keep the folder's original contents and subdirectories unchanged. Do **not** put the class framework into `src/needlettt/backend/`: that directory is for **our new TTT operators**.
+**Maggie Pai (and anyone running the real Needle model):** Copy your existing course Needle source folder into **`third_party/needle/`** at the root of this repository. Keep the folder's original contents and subdirectories unchanged. Do **not** put the class framework into `src/needlettt/backend/`: that directory is for **our new TTT operators**.
 
 For the common course layout, the resulting path looks like `third_party/needle/python/needle/`. Your exact class checkout may vary; [docs/needle_setup.md](docs/needle_setup.md) has step-by-step Windows and macOS/Linux copy commands, an import check, and troubleshooting.
 
@@ -61,14 +61,14 @@ docs/                      Architecture, contracts, dataset rules, collaboration
 configs/                   Planned dataset configurations (no raw data)
 data/examples/             Fictional demo catalog only
 src/needlettt/
-  data/                    Member A: MovieLens/Amazon preprocessing
-  models/                  Member A: model contracts + toy reference
-  training/                Member A: end-to-end Needle training
-  evaluation/              Member A: rolling metrics
-  backend/                 Member B: Needle fast-weight ops, CUDA integration
+  data/                    Samuel Shen: MovieLens/Amazon preprocessing
+  models/                  Samuel Shen: model contracts + toy reference
+  training/                Samuel Shen: end-to-end Needle training
+  evaluation/              Samuel Shen: rolling metrics
+  backend/                 Maggie Pai: Needle fast-weight ops, CUDA integration
 third_party/needle/         LOCAL ONLY: original class Needle checkout (gitignored)
-apps/api/                  Member C: local-only FastAPI service
-apps/web/                  Member C: React/Vite interface
+apps/api/                  Pin-Wen Wang: local-only FastAPI service
+apps/web/                  Pin-Wen Wang: React/Vite interface
 tests/                     Shared correctness + API smoke tests
 scripts/                   Experiments, benchmarks, data entrypoints
 ```
@@ -87,8 +87,8 @@ MovieLens-1M is the development dataset; Amazon Reviews 2023 Video Games 5-core 
 ## First team tasks
 
 - Review [docs/contracts.md](docs/contracts.md) together before coding and confirm DEE-5.
-- Member A replaces the teaching model with a trained history-aware two-tower and real data/checkpoints.
-- Member B adds differentiable Needle vector/matrix update operators and benchmarks CUDA fusion.
-- Member C keeps HTTP payloads stable while swapping the teaching model for the trained inference adapter.
+- Samuel Shen replaces the teaching model with a trained history-aware two-tower and real data/checkpoints.
+- Maggie Pai adds differentiable Needle vector/matrix update operators and benchmarks CUDA fusion.
+- Pin-Wen Wang keeps HTTP payloads stable while swapping the teaching model for the trained inference adapter.
 
 Use one branch/PR per Linear ticket. Link the ticket in the PR and run `pytest -q` before requesting review.
