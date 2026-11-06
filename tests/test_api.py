@@ -89,3 +89,35 @@ def test_replay_invalid_item_keeps_existing_history():
                           {"item_id": "missing-item", "rating": 5}]}
     assert client.post(f"/sessions/{sid}/replay", json=invalid).status_code == 404
     assert client.get(f"/sessions/{sid}/recommendations?variant=matrix").json() == before
+
+
+def test_two_sessions_replay_and_reset_with_both_external_id_formats():
+    first, second = new_session(), new_session()
+    variants = ("base", "vector", "matrix")
+
+    def recommendations(session_id):
+        return {
+            variant: client.get(
+                f"/sessions/{session_id}/recommendations", params={"variant": variant}
+            ).json()
+            for variant in variants
+        }
+
+    baseline = recommendations(first)
+    assert client.post(
+        f"/sessions/{second}/ratings", json={"item_id": "demo-astro", "rating": 3}
+    ).status_code == 200
+    second_before = recommendations(second)
+    events = [{"item_id": "1", "rating": 5}, {"item_id": "B000000001", "rating": 2}]
+    for event in events:
+        assert client.post(f"/sessions/{first}/ratings", json=event).status_code == 200
+    rated = recommendations(first)
+    assert all(result["history_length"] == 2 for result in rated.values())
+    for _ in range(2):
+        response = client.post(f"/sessions/{first}/replay", json={"events": events})
+        assert response.status_code == 200
+        assert recommendations(first) == rated
+    assert recommendations(second) == second_before
+    assert client.post(f"/sessions/{first}/reset").status_code == 200
+    assert recommendations(first) == baseline
+    assert recommendations(second) == second_before

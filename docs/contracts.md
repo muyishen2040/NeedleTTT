@@ -66,4 +66,30 @@ Base URL: `http://127.0.0.1:8000`, browser on `http://127.0.0.1:5173`. **HTTP do
 
 Recommendation rows: `{item_id,title,categories,image_url,score,rank}`. The bootstrap additionally returns `model_status:"toy_untrained"`, so it cannot be mistaken for a trained model.
 
+### Mock rating and replay examples
+
+The fictional teaching catalog includes a MovieLens-style string ID (`"1"`) and an
+Amazon-style ID (`"B000000001"`). The IDs only exercise the interface; they do not
+represent real catalog data. For one session, send ratings in order:
+
+```json
+{"item_id":"1","rating":5}
+```
+
+```json
+{"item_id":"B000000001","rating":2}
+```
+
+Replay the same history with `POST /sessions/{id}/replay`:
+
+```json
+{"events":[{"item_id":"1","rating":5},{"item_id":"B000000001","rating":2}]}
+```
+
+In the React teaching demo, rate **Mock MovieLens item** and **Mock Amazon item**,
+then select **Replay ratings**. The same recommendations should be shown after
+replay; **Reset ratings** clears the session. A second browser tab creates its own
+session and should stay unchanged. `tests/test_api.py` checks the same behavior for
+all three teaching variants, including repeated replay and session isolation.
+
 The **final integration** will load actual checkpoints and catalog metadata while keeping item IDs, event timing and response schema compatible. Do not change these boundaries independently.

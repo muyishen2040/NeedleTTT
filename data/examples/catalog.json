@@ -6,5 +6,7 @@
   {"item_id":"demo-sword","item_idx":4,"title":"Swordbound Legends","categories":["Role Playing"],"image_url":null,"source":"fictional_demo"},
   {"item_id":"demo-drift","item_idx":5,"title":"Night Drift","categories":["Racing"],"image_url":null,"source":"fictional_demo"},
   {"item_id":"demo-logic","item_idx":6,"title":"Circuit Lab","categories":["Strategy","Puzzle"],"image_url":null,"source":"fictional_demo"},
-  {"item_id":"demo-island","item_idx":7,"title":"Island Builder","categories":["Simulation","Strategy"],"image_url":null,"source":"fictional_demo"}
+  {"item_id":"demo-island","item_idx":7,"title":"Island Builder","categories":["Simulation","Strategy"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"1","item_idx":8,"title":"Mock MovieLens item","categories":["Mock movie"],"image_url":null,"source":"fictional_demo"},
+  {"item_id":"B000000001","item_idx":9,"title":"Mock Amazon item","categories":["Mock game"],"image_url":null,"source":"fictional_demo"}
 ]

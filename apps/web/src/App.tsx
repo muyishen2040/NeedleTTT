@@ -3,6 +3,7 @@ import {
   addRating,
   getRecommendations,
   listItems,
+  replayHistory,
   resetSession,
   startSession,
   VARIANTS,
@@ -27,6 +28,7 @@ export default function App() {
   const [recommendations, setRecommendations] = useState(emptyRecommendations);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   async function refreshRecommendations(id: string): Promise<void> {
     const arrays = await Promise.all(VARIANTS.map((v) => getRecommendations(id, v)));
@@ -62,6 +64,7 @@ export default function App() {
     if (!sessionId || busy || alreadyRated.has(itemId)) return;
     setBusy(true);
     setError(null);
+    setMessage(null);
     try {
       await addRating(sessionId, { item_id: itemId, rating: stars });
       setHistory((old) => [...old, { item_id: itemId, rating: stars }]);
@@ -73,10 +76,27 @@ export default function App() {
     }
   }
 
+  async function replay() {
+    if (!sessionId || busy || history.length === 0) return;
+    setBusy(true);
+    setError(null);
+    setMessage(null);
+    try {
+      await replayHistory(sessionId, history);
+      await refreshRecommendations(sessionId);
+      setMessage("Rating history replayed.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function reset() {
     if (!sessionId || busy) return;
     setBusy(true);
     setError(null);
+    setMessage(null);
     try {
       await resetSession(sessionId);
       setHistory([]);
@@ -108,6 +128,7 @@ export default function App() {
       </section>
 
       {error && <section className="error" role="alert">{error}</section>}
+      {message && <p role="status">{message}</p>}
 
       <section className="intro">
         <div><strong>1.</strong> Rate a few games below using 1–5 stars.</div>
@@ -186,6 +207,9 @@ export default function App() {
           </div>
           <div className="history">
             <strong>Observed feedback</strong>
+            <button disabled={!sessionId || busy || history.length === 0} onClick={() => void replay()}>
+              Replay ratings
+            </button>
             {history.length === 0 ? (
               <p>No ratings yet. The demo starts from identical empty histories.</p>
             ) : (
