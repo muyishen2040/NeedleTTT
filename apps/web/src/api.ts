@@ -78,6 +78,13 @@ export async function addRating(sessionId: string, rating: Rating): Promise<void
   });
 }
 
+export async function replayHistory(sessionId: string, events: Rating[]): Promise<void> {
+  await request("/sessions/" + encodeURIComponent(sessionId) + "/replay", {
+    method: "POST",
+    body: JSON.stringify({ events }),
+  });
+}
+
 export async function resetSession(sessionId: string): Promise<void> {
   await request("/sessions/" + encodeURIComponent(sessionId) + "/reset", {
     method: "POST",
