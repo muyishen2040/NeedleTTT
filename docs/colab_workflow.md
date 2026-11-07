@@ -66,7 +66,7 @@ Never silently `mkdir` a missing `DRIVE_ROOT`: it could create a **private copy*
 
 ## 4. Starter notebook and GitHub
 
-Open [00_setup.ipynb](../notebooks/00_setup.ipynb) in Google Colab. It:
+Open [00_setup.ipynb](../notebooks/00_setup.ipynb) in Google Colab. If using the Colab CLI, run `colab drivemount -s <session>` first; the notebook reuses an existing Drive mount. It:
 1. mounts Google Drive;
 2. resolves and validates Drive paths;
 3. clones the current GitHub `main` branch into the Colab VM if missing;
@@ -83,6 +83,6 @@ Before DEE-30 is considered done, **each teammate** should:
 - Confirm Editor access to the same Drive folder (by accessing one agreed test file).
 - Mount Drive and confirm `data/raw`, `data/processed`, `checkpoints`, and `results` are visible.
 - Run the starter notebook from their **own** Colab account and report the resolved `DATA_ROOT`, Git commit and import result (not private Drive identifiers).
-- Coordinate with Member A ([DEE-6](https://linear.app/deep-learning-system-final/issue/DEE-6/prepare-movielens-and-amazon-rating-histories)) before using a processed dataset: record its manifest/version, item-ID mapping, train/validation/test split and coverage. No real processed datasets are supplied by this setup notebook.
+- Coordinate with Samuel ([DEE-6](https://linear.app/deep-learning-system-final/issue/DEE-6/prepare-movielens-and-amazon-rating-histories)) before using a processed dataset: record its manifest/version, item-ID mapping, train/validation/test split and coverage. No real processed datasets are supplied by this setup notebook.
 
 For GPU/Needle/CUDA experiments, record the Colab runtime, framework/CUDA/compiler versions, GPU model, random seeds and Git commit with each result. Follow [Needle setup](needle_setup.md) and the course's sharing rules; the course framework is intentionally not committed.
