@@ -4,8 +4,7 @@
 
 - **MovieLens-1M:** development and correctness benchmark. Movie titles/genres; useful for fast smoke tests.
 - **Amazon Reviews 2023 / Video Games 5-core:** primary held-out ranking benchmark and product UI. Review `parent_asin` is an external item ID. Get titles, categories and image URLs from a **separate** Amazon product metadata file joined on `parent_asin`.
-- **Office Products 5-core:** secondary replication using the *same* pipeline and metrics.
-- **Grocery:** optional, not a required deliverable.
+- **Amazon Reviews 2023 / Grocery and Gourmet Food 5-core:** secondary benchmark using the *same* pipeline and metrics. Join its separate product metadata on `parent_asin`.
 
 **No real datasets have been committed.** The `data/examples/catalog.json` file is fictional and solely tests UI and API wiring.
 
