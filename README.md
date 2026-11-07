@@ -6,17 +6,22 @@
 
 > **Bootstrap status:** The runnable sample in this repository uses a **deterministic, untrained NumPy teaching model** with fictional demo products. It is NOT the real GRU two-tower, trained TTT, Needle, or CUDA implementation. Never use its recommendations or scores as experimental evidence.
 
+## Shared Google Drive + Colab workflow (DEE-30)
+
+For team experiments, keep **code/notebooks in GitHub** and **datasets, checkpoints and result artifacts in one shared Google Drive folder**. See [the shared Drive + Colab setup guide](docs/colab_workflow.md) and the [starter Colab notebook](notebooks/00_setup.ipynb). The default shared path is `/content/drive/MyDrive/NeedleTTT`, with `DATA_ROOT=/content/drive/MyDrive/NeedleTTT/data`; each teammate must add a shortcut to the *same* shared folder, not create separate copies.
+
+**Setup status:** The documentation/notebook alone do not verify sharing permissions, actual dataset availability, or successful teammate runs. Track remaining checks in [DEE-30](https://linear.app/deep-learning-system-final/issue/DEE-30/set-up-shared-google-drive-and-colab-workspace).
+
 ## Fresh clone and local quickstart (no deployment)
 
-The scaffold is in **[draft PR #1](https://github.com/muyishen2040/NeedleTTT/pull/1)** until the team merges it. Until then, check out the PR branch before running these commands:
+The [bootstrap PR #1](https://github.com/muyishen2040/NeedleTTT/pull/1) is merged into `main`. Start from the current default branch:
 
 ```bash
 git clone https://github.com/muyishen2040/NeedleTTT.git
 cd NeedleTTT
-git checkout chore/bootstrap-project-scaffold
 ```
 
-After the PR has been merged, clone or update `main` normally instead. You do **not** need the class Needle source just to run the toy demo and the bootstrap tests.
+You do **not** need the class Needle source just to run the toy demo and bootstrap tests.
 
 ## Local quickstart (no deployment)
 

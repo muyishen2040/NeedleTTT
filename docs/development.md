@@ -2,15 +2,18 @@
 
 ## Fresh clone
 
-Until [bootstrap PR #1](https://github.com/muyishen2040/NeedleTTT/pull/1) is merged, checkout its branch:
+[Bootstrap PR #1](https://github.com/muyishen2040/NeedleTTT/pull/1) has been merged. Clone `main`:
 
 ```bash
 git clone https://github.com/muyishen2040/NeedleTTT.git
 cd NeedleTTT
-git checkout chore/bootstrap-project-scaffold
 ```
 
-After the PR is merged, use `main`. No course Needle source is needed for the teaching demo or bootstrap tests.
+No course Needle source is needed for the teaching demo or bootstrap tests.
+
+## Shared Google Drive / Colab
+
+For team-hosted notebooks, shared datasets, checkpoints, and results, follow [the Colab workflow guide](colab_workflow.md) and [starter notebook](../notebooks/00_setup.ipynb). Source and notebooks remain in GitHub, large artifacts remain in shared Drive, and `DATA_ROOT` defaults to `/content/drive/MyDrive/NeedleTTT/data`. Each teammate must validate access to the **same** folder. See [DEE-30](https://linear.app/deep-learning-system-final/issue/DEE-30/set-up-shared-google-drive-and-colab-workspace).
 
 ## Quick commands
 
