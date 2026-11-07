@@ -87,7 +87,7 @@ scripts/                   Experiments, benchmarks, data entrypoints
 3. Two-tower + matrix TTT with rating-conditioned vector targets.
 4. Separately trained static/no-update control.
 
-MovieLens-1M is the development dataset; Amazon Reviews 2023 Video Games 5-core is the primary benchmark and UI catalog; Office Products is a secondary replication. Use **predict → evaluate → reveal rating → update** per event, with NDCG@10 over the declared full *eligible/filtered* catalog. See [docs/data.md](docs/data.md) for leakage and reporting rules.
+MovieLens-1M is the development dataset; Amazon Reviews 2023 Video Games 5-core is the primary benchmark and UI catalog; Amazon Grocery and Gourmet Food 5-core is the secondary benchmark. Use **predict → evaluate → reveal rating → update** per event, with NDCG@10 over the declared full *eligible/filtered* catalog. See [docs/data.md](docs/data.md) for leakage and reporting rules.
 
 ## First team tasks
 
