@@ -75,6 +75,10 @@ Open [00_setup.ipynb](../notebooks/00_setup.ipynb) in Google Colab. If using the
 
 `00_setup.ipynb` does **not** download MovieLens/Amazon, create the shared folder, or train a real model. The repo's default branch is currently public; if it becomes private, configure authenticated access using Colab secrets or an approved credential workflow. **Never paste tokens into a notebook or commit credentials.**
 
+To obtain the three raw datasets after setup, run [01_download_datasets.ipynb](../notebooks/01_download_datasets.ipynb). It saves MovieLens-1M under shared `data/raw/movielens_1m/` and the two Amazon 5-core rating files and separate metadata under `data/raw/amazon_video_games/` and `data/raw/amazon_grocery/`. The source files need about 2.1 GB plus extracted MovieLens files. GroupLens restricts redistribution without separate permission; review the applicable terms before sharing. Check the Amazon source terms as well. The downloader verifies size and SHA-256 and will not overwrite a mismatched existing file.
+
+This notebook only downloads raw inputs. It does not create the processed events, catalog, splits, and manifests required by DEE-6. No raw datasets are committed to GitHub.
+
 Because Colab VM storage is temporary, a repo clone under `/content/NeedleTTT` will disappear when the runtime resets. Keep source in GitHub and artifacts in Drive. Prefer a local VM copy of large data for training speed, and write final outputs back into versioned shared Drive paths.
 
 ## 5. Validation / handoff

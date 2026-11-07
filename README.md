@@ -12,6 +12,8 @@ For team experiments, keep **code/notebooks in GitHub** and **datasets, checkpoi
 
 **Setup status:** The documentation/notebook alone do not verify sharing permissions, actual dataset availability, or successful teammate runs. Track remaining checks in [DEE-30](https://linear.app/deep-learning-system-final/issue/DEE-30/set-up-shared-google-drive-and-colab-workspace).
 
+After setup, use [the raw-dataset download notebook](notebooks/01_download_datasets.ipynb) to obtain the three project datasets. It does not yet create processed training data or user splits.
+
 ## Fresh clone and local quickstart (no deployment)
 
 The [bootstrap PR #1](https://github.com/muyishen2040/NeedleTTT/pull/1) is merged into `main`. Start from the current default branch:
