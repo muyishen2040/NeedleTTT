@@ -157,11 +157,14 @@ def prepare_raw_inputs(
     data_root: Path, local_root: Path, datasets: tuple[str, ...]
 ) -> dict[str, str]:
     """Put Amazon source files in Drive and MovieLens in a private local runtime."""
-    data_root = data_root.expanduser().resolve()
-    local_root = local_root.expanduser().resolve()
+    # Preserve the user-facing shortcut path in output; resolve separately for
+    # containment checks so a shortcut cannot hide a shared Drive location.
+    data_root = Path(os.path.abspath(data_root.expanduser()))
+    local_root = Path(os.path.abspath(local_root.expanduser()))
     if not (data_root / "raw").is_dir() or not (data_root / "processed").is_dir():
         raise FileNotFoundError("Expected existing shared data/raw and data/processed folders")
-    if local_root.is_relative_to(data_root.parent) or local_root.is_relative_to(
+    resolved_local = local_root.resolve()
+    if resolved_local.is_relative_to(data_root.resolve().parent) or resolved_local.is_relative_to(
         Path("/content/drive")
     ):
         raise ValueError("MovieLens must use a local runtime folder outside the shared Drive")
