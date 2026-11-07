@@ -12,7 +12,7 @@ def source(path: Path) -> download.Source:
     return download.Source(path.name, path.as_uri(), len(data), hashlib.sha256(data).hexdigest())
 
 
-def test_prepare_places_sources_in_separate_roots_and_can_be_repeated(tmp_path, monkeypatch):
+def test_prepare_places_all_sources_in_shared_raw_folders_and_can_be_repeated(tmp_path, monkeypatch):
     data_root = tmp_path / "shared" / "data"
     (data_root / "raw").mkdir(parents=True)
     (data_root / "processed").mkdir()
@@ -39,19 +39,17 @@ def test_prepare_places_sources_in_separate_roots_and_can_be_repeated(tmp_path, 
             "amazon_grocery": (source(grocery), source(metadata)),
         },
     )
-    local = tmp_path / "runtime"
     datasets = ("movielens_1m", "amazon_video_games", "amazon_grocery")
 
-    paths = download.prepare_raw_inputs(data_root, local, datasets)
-    assert paths == download.prepare_raw_inputs(data_root, local, datasets)
-    assert (local / "movielens_1m" / "ratings.dat").read_text() == "1::2::5::10\n"
+    paths = download.prepare_raw_inputs(data_root, datasets)
+    assert paths == download.prepare_raw_inputs(data_root, datasets)
+    assert (data_root / "raw" / "movielens_1m" / "ratings.dat").read_text() == "1::2::5::10\n"
     assert (
         data_root / "raw" / "amazon_video_games" / video.name
     ).read_bytes() == video.read_bytes()
     assert (
         data_root / "raw" / "amazon_grocery" / grocery.name
     ).read_bytes() == grocery.read_bytes()
-    assert not (data_root / "raw" / "movielens_1m").exists()
     assert not (tmp_path / "escape.txt").exists()
     assert list((data_root / "processed").iterdir()) == []
 
@@ -75,11 +73,11 @@ def test_corrupt_existing_and_incomplete_downloads_do_not_overwrite(tmp_path):
     assert list(target_dir.iterdir()) == []
 
 
-def test_rejects_missing_shared_folders_and_movielens_inside_shared_drive(tmp_path):
+def test_rejects_missing_shared_folders_and_unknown_datasets(tmp_path):
     data = tmp_path / "NeedleTTT" / "data"
     with pytest.raises(FileNotFoundError):
-        download.prepare_raw_inputs(data, tmp_path / "runtime", ("movielens_1m",))
+        download.prepare_raw_inputs(data, ("movielens_1m",))
     (data / "raw").mkdir(parents=True)
     (data / "processed").mkdir()
-    with pytest.raises(ValueError, match="outside the shared Drive"):
-        download.prepare_raw_inputs(data, data / "raw", ("movielens_1m",))
+    with pytest.raises(ValueError, match="Unknown dataset"):
+        download.prepare_raw_inputs(data, ("unknown",))

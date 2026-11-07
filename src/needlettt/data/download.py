@@ -153,33 +153,23 @@ def _extract_movielens(archive_path: Path, destination: Path) -> None:
                 temporary.unlink(missing_ok=True)
 
 
-def prepare_raw_inputs(
-    data_root: Path, local_root: Path, datasets: tuple[str, ...]
-) -> dict[str, str]:
-    """Put Amazon source files in Drive and MovieLens in a private local runtime."""
-    # Preserve the user-facing shortcut path in output; resolve separately for
-    # containment checks so a shortcut cannot hide a shared Drive location.
+def prepare_raw_inputs(data_root: Path, datasets: tuple[str, ...]) -> dict[str, str]:
+    """Place verified source files in dataset-specific raw-data folders."""
+    # Preserve the user-facing shortcut path in output.
     data_root = Path(os.path.abspath(data_root.expanduser()))
-    local_root = Path(os.path.abspath(local_root.expanduser()))
     if not (data_root / "raw").is_dir() or not (data_root / "processed").is_dir():
         raise FileNotFoundError("Expected existing shared data/raw and data/processed folders")
-    resolved_local = local_root.resolve()
-    if resolved_local.is_relative_to(data_root.resolve().parent) or resolved_local.is_relative_to(
-        Path("/content/drive")
-    ):
-        raise ValueError("MovieLens must use a local runtime folder outside the shared Drive")
     unknown = set(datasets) - {"movielens_1m", *AMAZON_SOURCES}
     if unknown:
         raise ValueError(f"Unknown dataset(s): {', '.join(sorted(unknown))}")
 
     result: dict[str, str] = {}
     for dataset in datasets:
+        destination = data_root / "raw" / dataset
         if dataset == "movielens_1m":
-            destination = local_root / dataset
             archive = _download(MOVIELENS, destination)
             _extract_movielens(archive, destination)
         else:
-            destination = data_root / "raw" / dataset
             for source in AMAZON_SOURCES[dataset]:
                 _download(source, destination)
         result[dataset] = str(destination)
@@ -192,16 +182,13 @@ def main() -> None:
         "--data-root", type=Path, required=True, help="Existing shared NeedleTTT/data"
     )
     parser.add_argument(
-        "--local-root", type=Path, required=True, help="Temporary local runtime directory"
-    )
-    parser.add_argument(
         "--datasets",
         nargs="+",
         choices=("movielens_1m", *AMAZON_SOURCES),
         default=["movielens_1m", *AMAZON_SOURCES],
     )
     args = parser.parse_args()
-    locations = prepare_raw_inputs(args.data_root, args.local_root, tuple(args.datasets))
+    locations = prepare_raw_inputs(args.data_root, tuple(args.datasets))
     print("\nVerified raw inputs:")
     print(json.dumps(locations, indent=2))
     print("No train/validation/test splits or processed datasets were created.")

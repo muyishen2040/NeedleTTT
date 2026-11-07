@@ -8,7 +8,7 @@
 
 **No real datasets have been committed.** The `data/examples/catalog.json` file is fictional and solely tests UI and API wiring.
 
-The raw-download workflow is [notebooks/01_download_datasets.ipynb](../notebooks/01_download_datasets.ipynb); details and storage locations are in [the Colab guide](colab_workflow.md). It downloads MovieLens to the temporary runtime and the two Amazon categories to shared Drive after the user checks the applicable sharing terms. It does not yet prepare training data.
+The raw-download workflow is [notebooks/01_download_datasets.ipynb](../notebooks/01_download_datasets.ipynb); details and storage locations are in [the Colab guide](colab_workflow.md). It downloads all three categories into shared Drive raw-data folders. It does not yet prepare training data. Review the data providers' sharing terms before distributing these files.
 
 ## Split and filtering
 
